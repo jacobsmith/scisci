@@ -1,0 +1,13 @@
+<% if @collection != [] %> 
+  <% @collection.reverse.each do |instance| %>
+    <%= instance.quote %>
+    <br>
+
+    <%= instance.tags %>
+    <p>---</p>
+  <% end %>
+  <br>
+<% else %>
+  <p>No search results found</p>
+<% end %>
+

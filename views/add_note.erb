@@ -1,0 +1,13 @@
+<% source_titles = []
+  @sources.each do |source|
+    source_titles << source.title
+    end
+  %>
+  
+<%= create_form_header("add_note") %>
+<%= create_inputs("textarea", %w[quote]) %>
+<%= create_inputs("text", %w[page]) %>
+<%= create_drop_down("source_name", source_titles) %>
+<%= create_inputs("text", %w[tags]) %>
+<%= create_form_submit %>
+

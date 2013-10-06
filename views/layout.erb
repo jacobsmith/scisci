@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <%= create_form_header("search") %>
+    <%= create_inputs("text", %w[search]) %>
+    <%= create_form_submit() %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+
+  <%= link_to('All Sources', '/all_sources') %>
+  <%= link_to('All Notes', '/all_notes') %>
+  <%= link_to('Add Note', '/add_note') %>
+  <%= link_to('Add Source', '/add_source') %>
+
+</html>
