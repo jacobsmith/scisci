@@ -1,0 +1,4 @@
+<% @projects.each do |project| %>
+  <%= link_to(project.project_name.to_s, "project/" + project.project_name.to_s) %>
+<% end %>
+<br>
