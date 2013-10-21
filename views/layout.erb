@@ -1,17 +1,43 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <%= create_form_header("search") %>
-    <%= create_inputs("text", %w[search]) %>
-    <%= create_form_submit() %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/custom_tabs.css" />
+    <link rel="stylesheet" href="/css/bootstrap_journal.css" />
+    <link rel="stylesheet" href="/css/bootstrap-responsive.css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <div class="container">
+      <%= erb :navbar  %>
+    </div>
   </head>
 
+
   <body>
-    <%= yield %>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span11 offset1">
+          <div class="row-fluid">
+          <h3><%= @title %><a href="<%= puts request.path
+                                        if request.path.match("all")
+                                          request.path.gsub("all","add").chop
+                                        elsif request.path.match(/source\/\d+/) 
+                                          "/add_note"
+                                        end %>"><i class="icon-plus-sign-alt offset8 text-success"></i></a></h3>
+            <!-- '<small class="offset7">Add new!</small>' if request.path.match(/all/) %>-->
+            </div> <!--row-fluid (title area) --> 
+            <div style="padding-left:10px"><%= yield %> </div>
+        </div> <!--span information-->
+      </div> <!--row-fluid-->
+    </div> <!--container-fluid-->
+
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
   </body>
 
-  <%= link_to('All Sources', '/all_sources') %>
-  <%= link_to('All Notes', '/all_notes') %>
-  <%= link_to('Add Note', '/add_note') %>
-  <%= link_to('Add Source', '/add_source') %>
-
-</html>
+  <!--footer-->
+  <div class="navbar navbar-fixed-bottom">
+    <div class="col-md-4 offset0">
+      <h5><small>Copyright 2013 - Jacob Smith<br></small></h5> 
+  </div>
+    </html>

@@ -1,4 +1,8 @@
-<% @sources.each do |source| %>
-  <%= link_to(source.title, "source/" + source.id.to_s) %>
-  <br>
-<%end%>
+<% if @sources == [] %>
+    <p>Please add a source to begin.</p>
+  <% else %>
+    <% @sources.each do |source| %>
+      <%= link_to(source.title, "source/" + source.id.to_s) %>
+      <br>
+  <% end %>
+<% end %>

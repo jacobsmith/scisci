@@ -1,3 +1,4 @@
 <%= create_form_header("add_source") %>
 <%= create_inputs("text", %w[title author copyright_date website_url]) %>
+<%= hidden_form("project_name", @project_name) %>
 <%= create_form_submit %>

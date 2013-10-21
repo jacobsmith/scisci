@@ -1,4 +1,18 @@
-<%= create_form_header("login") %>
-<%= create_inputs("text", %w[username]) %>
-<%= create_inputs("password", %w[password]) %>
-<%= create_form_submit() %>
+<form action="/login" method="post" class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label" for="username">Username</label>
+      <div class="controls"> 
+        <input type="text" id="username" name="username" placeholder="test@abc.com">
+      </div>
+    </div>
+    <div class="control-group"> 
+      <label class="control-label" for="password">Password</label>
+      <div class="controls">
+        <input type="password" id="password" name="password" placeholder="Password">
+      </div>
+    </div>
+  <br>
+  <button type="submit" class="btn">Sign in</button>
+</form>
+<br>
+<p>Not a member? <a href="/signup">Sign up here!</a></p>

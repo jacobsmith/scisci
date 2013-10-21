@@ -1,6 +1,8 @@
 <% @source.note.each do |note| %>
   <%= note.quote %>
   <br>
-  <%= note.tags %>
+  <% note.tags.split(",").each do |tag| %>
+    <%= link_to("#" + tag.strip, "/tag/#{tag}") %>
+  <% end %> 
   <br>
 <%end%>

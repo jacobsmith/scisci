@@ -2,19 +2,25 @@ def create_form_header(url, id='')
   element = ""
   element <<  "<form action=\"/" + url 
   element <<  "/" + @request.id.to_s if @request.respond_to?("id")  
-  element << "\" method=\"post\">"
+  element << '" method="post" class="form-horizontal">'
   element << "\n"
   return element
 end
 
-def create_inputs(type, labels, value = nil, columns='', rows='', end_break = true)
+def create_inputs(type, labels, value = nil, columns = 0, rows = 0)
   element = ''
   labels.each do |label|
     saved_value = @request.respond_to?(label) ? @request.send(label) : "" 
-    element <<  "<label for=\"" + label + "\">" + underscore_to_words(label) + "</label>"
-    element <<  "<input type=\"" + type + "\" id=\"" + label + "\" name=\"" + label + "\" value=\"" + saved_value + "\">"
+    element << '<div class="control-group">'
+    element <<  '<label class="control-label" for="' + label + '">' + underscore_to_words(label) + '</label>'
+    element << '<div class="controls">'
+    element <<  "<input type=\"" + type + "\""
+    element << "\" style=\"height:100px; width:300px;\"" if type == 'textarea' 
+    element << " id=\"" + label + "\" name=\"" + label + "\" value=\"" + saved_value + "\">"
+    element << '</div>'
+    element << '</div>'
     element << "\n"
-    element << "<br>" 
+    element << "<br>" if label == labels[-1] 
   end
   return element 
 end
@@ -29,7 +35,7 @@ def create_drop_down(category, options)
   options.each do |option|
     option = option.to_s
     element <<  "  <option value=\"" + option + "\""
-    element << "selected=\"selected\"" + @request.send(category).to_s if option == saved_value      
+    element << "selected=\"selected\"" + saved_value if option == saved_value      
     element << ">" + underscore_to_words(option) + "</option>"
     element << "\n"
   end
@@ -49,9 +55,15 @@ def check_box(id)
   element << "</li>"
 end
 
-def create_form_submit()
+def hidden_form(name, value)
+  return "<input type=\"hidden\" name=\"#{name}\" value=\"#{value}\">"
+end
+
+def create_form_submit(text = "Submit")
   element = ''
-  element <<  "<input type=\"submit\">"
+  element <<  '<button type="submit" class="btn">'
+  element << text
+  element << '</button>'
   element <<  "</form>"
 end
 
@@ -61,4 +73,38 @@ end
 
 def link_to(text, url)
     "<a href='#{url}' >#{text}</a>"
+end
+ 
+def url_is(string) 
+  return true if request.path_info == string 
+end 
+
+def url_not(string) 
+  return true if request.path_info != string 
+end 
+
+def create_tabs()
+  element = ''
+  element << '<div class="tabbale tabs-left">' 
+  element << '<ul class="nav nav-tabs" data-toggle="tabs">'
+  @sources.each do |source|
+    element << '<li><a href="#' + source.id.to_s + '" data-toggle="tab">' + source.title + '</a></li>'
+  end
+  element << '</ul>' #end of creating tabs themselves
+
+  #tab content
+
+  element << "\n"
+  element << '<div class="tab-content">'
+  @sources.each do |source|
+    element << '<div id="' + source.id.to_s + '" class="tab-pane">'
+      source.note.each do |note|
+        element << note.quote + "<br>" if note.source == source
+      end
+      element << '</div>'
+    end
+  element << '</div>'
+  element << '</div>'
+
+  return element
 end

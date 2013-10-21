@@ -1,4 +1,8 @@
-<% @projects.each do |project| %>
-  <%= link_to(project.project_name.to_s, "project/" + project.project_name.to_s) %>
+<% if @projects != [] %>
+  <% @projects.each do |project| %>
+    <%= link_to(project.project_name.to_s, "project/" + project.project_name.to_s) %>
+    <br>
+  <% end %>
+<% else %>
+  Please create a <%= link_to("new project", "/create_project") %> to begin.
 <% end %>
-<br>
