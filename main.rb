@@ -29,6 +29,9 @@ helpers do
     redirect '/login' if login? == false
   end
 
+  def return_all_sources
+     Project.first(:user_id => User.first(:username => cookies[:username]).id, :project_name => cookies[:project_name]).source
+  end
 end
 
 before do
@@ -39,8 +42,6 @@ before do
   DataMapper.finalize
 # DataMapper.auto_migrate!
   DataMapper.auto_upgrade!
-
-#puts "These are your cookies #{cookies.inspect} called from #{request.path}"
 
 end
 
@@ -93,7 +94,7 @@ end
 
 get "/add_note" do
   if login?
-    @sources = Source.all
+    @sources = return_all_sources() 
     @title = "Add Note"
     erb :add_note
   else
@@ -113,7 +114,12 @@ post "/add_note" do
     begin
       source.note << note
       source.save
-      redirect "/source/#{source.id}"
+      note_first_phrase = note.quote.split(" ").each_with_index.map { |word, index| word + " " if index < 10 }.join(" ")
+      flash = "Note starting with: #{note_first_phrase}... saved successfully!"
+      session[:flash] = flash 
+      puts session.inspect
+      #      erb :add_note
+      redirect "/add_note"
     rescue Exception => e
       "Error while saving: " + e.to_s
     end
@@ -125,7 +131,7 @@ end
 
 get "/all_notes" do
   if login?
-    @sources = Project.first(:user_id => User.first(:username => cookies[:username]).id, :project_name => cookies[:project_name]).source
+    @sources = return_all_sources()
     @title = "All Notes"
     erb :all_notes
   else
@@ -144,21 +150,25 @@ get "/add_source" do
 end
 
 post "/add_source" do
-  source = Source.new 
-  source.project = Project.first(:project_name => params[:project_name])
-  params.delete("project_name")  
+  if login?
+    source = Source.new 
+    source.project = Project.first(:project_name => params[:project_name])
+    params.delete("project_name")  
 
-  params.each do |param|
-    if !param.nil?
-      source.attributes = { param[0].to_sym => param[1] || nil }
-    end 
-  end
+    params.each do |param|
+      if !param.nil?
+        source.attributes = { param[0].to_sym => param[1] || nil }
+      end 
+    end
 
-  begin
-    source.save
-    redirect "/all_sources"
-  rescue Exception => e
-    "Error while saving: " + e.to_s
+    begin
+      source.save
+      redirect "/all_sources"
+    rescue Exception => e
+      "Error while saving: " + e.to_s
+    end
+  else
+    erb :please_login
   end
 end
 
@@ -206,13 +216,19 @@ post "/search" do
 end
 
 get "/tag/:tag" do
-  @collection = [] 
-  Project.first(:user_id => User.first(:username => cookies[:username]).id, :project_name => cookies[:project_name]).source.note.each do |note|
-    @collection << note if note.tags.match(params[:tag]) 
-  end 
-  @title = "Tags"
-  erb :search_return
+  if login?
+    @collection = [] 
+    sources = return_all_sources 
+    sources.note.each do |note|
+      @collection << note if note.tags.match(params[:tag]) 
+    end 
+    @title = "Tags"
+    erb :search_return
+  else
+    erb :please_login
+  end
 end
+
 
 get "/login" do
   @title = "Login"

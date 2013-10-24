@@ -5,7 +5,7 @@
   %>
   
 <%= create_form_header("add_note") %>
-<%= create_inputs("textarea", %w[quote], columns=40, rows=40) %>
+<%= create_inputs("textArea", %w[quote]) %>
 <%= create_inputs("text", %w[page]) %>
 <%= create_inputs("text", %w[tags]) %>
 <%= hidden_form("source_name", session[:source]) %>

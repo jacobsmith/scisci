@@ -9,8 +9,10 @@
 
     <div class="container">
       <%= erb :navbar  %>
-    </div>
-  </head>
+      <%= flash_message(session[:flash], "success") if session[:flash] %> 
+      <% session.delete(:flash) %>
+      </div>
+    </head>
 
 
   <body>

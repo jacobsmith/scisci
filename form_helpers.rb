@@ -108,3 +108,59 @@ def create_tabs()
 
   return element
 end
+
+def create_tabs2()
+  element = ''
+  element << '<div class="tabbale tabs-left">' 
+  element << '<ul class="nav nav-tabs" data-toggle="tabs">'
+  @sources.each do |source|
+    element << '<li><a href="#' + source.id.to_s + '" data-toggle="tab">' + source.title + '</a></li>'
+  end
+  element << '</ul>' #end of creating tabs themselves
+
+  #tab content
+
+  element << "\n"
+  element << '<div class="tab-content">'
+  @sources.each do |source|
+    element << '<div id="' + source.id.to_s + '" class="tab-pane">'
+    element << '<ul class="list-group span7">'
+
+    source.note.each do |note|
+      element << '<li class="list-group-item">'
+      element << note.quote + "<br>" if note.source == source
+      element << expand(note)
+      element << '</li>'
+    end
+    element << '</ul>' 
+    element << '</div>'
+  end
+  element << '</div>'
+
+  return element
+end
+
+def expand(note)
+  element = ''
+  element << '<div class="collapse-group">'
+  element << '<div class="collapse" id="' + note.id.to_s + '">'
+  element << note.page 
+  element << note.tags
+  element << '</div>'
+  element << '<a class="btn-primary btn-sm" data-toggle="collapse" data-target="#' + note.id.to_s + '">'
+  element << 'View Details'
+  element << '</a>' 
+  element << '</div>'
+end
+
+def flash_message(message, type_of_notice)
+  element = ''
+  element << '<div id="flash" class="alert alert-dismissable span11 '
+  element << "alert-#{type_of_notice}\">" 
+  element << message.to_s
+  element << '</div>'
+  element << "<script type=\"text/javascript\">('#flash').fadeOut();</script>"
+  return element
+end
+
+

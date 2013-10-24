@@ -5,3 +5,5 @@ views/.search_return.erb.swp
 views/old_erb_files/
 views/search.erb.old
 
+views/*.swp
+*.swp
