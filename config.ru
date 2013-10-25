@@ -7,4 +7,4 @@ require "bcrypt"
 require "pry"
 require "./main.rb"
 
-run Sinatra::Application
+run SciSci 

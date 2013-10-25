@@ -1,7 +1,8 @@
+require "./database_models.rb"
+
 class SciSci < Sinatra::Application
 
   require "sinatra"
-  require "sinatra/cookies"
   require "./form_helpers.rb"
   require "dm_noisy_failures"
   require "./database_models.rb"
@@ -14,13 +15,13 @@ class SciSci < Sinatra::Application
 
     include ERB::Util
     set :sessions, true
-    set :session_secret, "you'll never guess this!"
+    set :session_secret, "you'll never guess this! really!"
     set :session_expire_after,  2592000
 
 
     helpers do
       def login?
-        if cookies[:username].nil?
+        if session[:username].nil?
           return false
         else
           return true
@@ -32,13 +33,19 @@ class SciSci < Sinatra::Application
       end
 
       def return_all_sources
-        Project.first(:user_id => User.first(:username => cookies[:username]).id, :project_name => cookies[:project_name]).source
+        Project.first(:user_id => User.first(:username => session[:username]).id, :project_name => session[:project_name]).source
       end
     end
 
     before do
-      @projects = User.first(:username => cookies[:username]).project.all if login?
-      @sources = Source.all(:project => cookies[:project_name]) if login?
+      if login?
+        @projects = User.first(:username => session[:username]).project.all
+        @sources = Source.all(:project => session[:project_name])
+      else
+        @projects = []
+        @sources = []
+      end
+
       DataMapper.finalize
       DataMapper.auto_upgrade!
     end
@@ -59,7 +66,7 @@ class SciSci < Sinatra::Application
 
     post "/create_project" do
       project = Project.new 
-      @user = User.first(:username => cookies[:username])
+      @user = User.first(:username => session[:username])
       project.project_name = params[:project_name]
 
       begin
@@ -78,13 +85,13 @@ class SciSci < Sinatra::Application
     end
 
     get "/project/:project_name" do
-      cookies[:project_name] = params[:project_name].to_s
+      session[:project_name] = params[:project_name].to_s
       redirect "/all_sources"
     end
 
     get "/all_projects" do
       if login?
-        @projects = User.first(:username => cookies[:username]).project
+        @projects = User.first(:username => session[:username]).project
         @title = "All Projects"
         erb :all_projects
       else
@@ -141,7 +148,7 @@ class SciSci < Sinatra::Application
 
     get "/add_source" do
       if login? 
-        @project_name = cookies[:project_name] 
+        @project_name = session[:project_name] 
         @title = "Add Source"
         erb :add_source
       else
@@ -175,7 +182,7 @@ class SciSci < Sinatra::Application
 
     get "/all_sources" do
       if login? 
-        @sources = Source.all(:project => {:project_name => cookies[:project_name]} ) 
+        @sources = Source.all(:project => {:project_name => session[:project_name]} ) 
         if @sources != nil
           @title = "All Sources"
           erb :all_sources
@@ -243,7 +250,7 @@ class SciSci < Sinatra::Application
       if User.first(:username => params[:username])
         user = User.first(:username => [params[:username]])
         if user[:password_hash] == BCrypt::Engine.hash_secret(params[:password], user[:password_salt])
-          cookies[:username] = user[:username]
+          session[:username] = user[:username]
           redirect "/all_projects"
         end 
       else
@@ -274,7 +281,7 @@ class SciSci < Sinatra::Application
 
       begin
         user.save
-        cookies[:username] = params[:username]
+        session[:username] = params[:username]
         session[:flash] = "You successfully signed up--thanks! If you need any help, please just email me at jacob.wesley.smith@gmail.com (:"
         redirect "/all_projects" 
       rescue Exception => e
@@ -285,7 +292,7 @@ class SciSci < Sinatra::Application
     get "/logout" do
       session[:username] = nil
       session[:project_name] = nil
-      cookies.clear
+      session.clear
       redirect "/"
     end
 
