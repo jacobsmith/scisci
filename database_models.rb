@@ -46,6 +46,8 @@ class User
   property :email, String, :format => :email_address
   property :password_hash, String, :length => 60
   property :password_salt, String, :length => 60
+  property :expires_at, Date
+
 
   has n, :project
 end

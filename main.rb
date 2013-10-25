@@ -38,7 +38,7 @@ before do
   @projects = User.first(:username => cookies[:username]).project.all if login?
   @sources = Source.all(:project => cookies[:project_name]) if login?
   DataMapper.finalize
-
+  DataMapper.auto_upgrade!
 end
 
 get "/" do
@@ -267,6 +267,7 @@ post "/signup" do
                         :password_salt => password_salt,
                         :password_hash => password_hash,
                         :email => params[:email] }
+    user.expires_at = Date.today + 90
   end
 
   begin
