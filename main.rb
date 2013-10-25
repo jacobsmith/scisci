@@ -35,18 +35,15 @@ helpers do
 end
 
 before do
-#  @projects = [] 
-#  @sources = []
   @projects = User.first(:username => cookies[:username]).project.all if login?
   @sources = Source.all(:project => cookies[:project_name]) if login?
   DataMapper.finalize
-# DataMapper.auto_migrate!
-  DataMapper.auto_upgrade!
 
 end
 
 get "/" do
-  redirect '/login'
+  @title = "Welcome!"
+  erb :index
 end
 
 get "/create_project" do
@@ -67,6 +64,7 @@ post "/create_project" do
     if @user.project(:project_name => params[:project_name]) == []
       @user.project << project
       project.save
+      session[:flash] = "Project #{project.project_name} created!"
       redirect "/all_projects"
     else
       "Please choose a different Project name. You already have one with that name!"
@@ -163,6 +161,7 @@ post "/add_source" do
 
     begin
       source.save
+      session[:flash] = "Source #{source.name} successfully created!"
       redirect "/all_sources"
     rescue Exception => e
       "Error while saving: " + e.to_s
@@ -180,6 +179,7 @@ get "/all_sources" do
       erb :all_sources
     else
       redirect "/add_source"
+      session[:flash] = "You must add a source first (: "
     end
   else
     erb :please_login
@@ -188,7 +188,8 @@ end
 
 get "/source/:id" do
   if login? 
-    @source = Source.first(:id => params[:id])
+    sources = return_all_sources 
+    @source = sources.first(:id => params[:id])
     @title = @source.title
     session[:source] = @title 
     erb :notes_of_source
@@ -199,8 +200,9 @@ end
 
 post "/search" do
   if login?
-    @collection = [] 
-    Note.all.each do |note|
+    @collection = []
+    sources = return_all_sources 
+    sources.note.all.each do |note|
       if note.tags != nil
         @collection << note if note.tags.match(params[:search])
       end
@@ -270,6 +272,7 @@ post "/signup" do
   begin
     user.save
     cookies[:username] = params[:username]
+    session[:flash] = "You successfully signed up--thanks! If you need any help, please just email me at jacob.wesley.smith@gmail.com (:"
     redirect "/all_projects" 
   rescue Exception => e
     "Error while saving: " + e.to_s
