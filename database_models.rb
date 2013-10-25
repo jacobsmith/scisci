@@ -1,4 +1,5 @@
-require 'data_mapper'
+require "data_mapper"
+require "bcrypt"
 
 DataMapper.setup(:default, "sqlite3:notes.db")
 
@@ -10,6 +11,21 @@ class Project
   property :project_name, String
   has n, :source
   belongs_to :user
+
+  def self.create_new_project(project_name, user)
+    project = Project.new
+
+    project.attributes = {
+      :project_name => project_name,
+    }
+
+    begin 
+      user << project
+      project.save
+    rescue
+      raise SaveError
+   end
+  end
 end
 
  class Source 
@@ -50,4 +66,27 @@ class User
 
 
   has n, :project
+  
+  def self.create_new_user(username, email, password, expires_at)
+
+    user = User.new
+
+    password_salt = BCrypt::Engine.generate_salt
+    password_hash = BCrypt::Engine.hash_secret(password, password_salt)
+    
+    user.attributes = {
+      :username => username,
+      :email => email,
+      :password_salt => password_salt,
+      :password_hash => password_hash,
+      :expires_at => expires_at
+    }
+
+  begin
+    user.save
+  rescue
+    raise UserSaveError
+  end
+  end
+
 end
