@@ -100,6 +100,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby
+  bundler
   datamapper
   dm-noisy-failures
   dm-sqlite-adapter

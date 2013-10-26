@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem "bundler"
 gem "datamapper"
 gem "dm-sqlite-adapter"
 gem "sinatra"
