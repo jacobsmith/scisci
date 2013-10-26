@@ -8,6 +8,7 @@ class SciSci < Sinatra::Application
   require "./database_models.rb"
   require "bcrypt"
   require "pry"
+  require "dotenv"
 
   configure(:development) { set :session_secret, "something"
     set :domain, "127.0.0.1" 
@@ -15,8 +16,8 @@ class SciSci < Sinatra::Application
 
     include ERB::Util
     set :sessions, true
-    set :session_secret, "you'll never guess this! really!"
-    set :session_expire_after,  2592000
+    set :session_secret, ENV['SESSION_SECRET']
+    set :session_expire_after, 60*60*4 #expire after 4 hours 
 
 
     helpers do
