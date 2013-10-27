@@ -1,3 +1,5 @@
+require './views/view_helpers.rb'
+
 def create_form_header(url, id='')
   element = ""
   element <<  "<form action=\"/" + url 
@@ -144,13 +146,13 @@ def expand(note)
   element = ''
   element << '<p style="display:none" id="' + note.id.to_s + '">'
   element << 'Page: ' + note.page.to_s if note.page != ''
-  element << ' Tags: ' + note.tags.to_s if note.tags != ''
+  element << ' Tags: ' + tag_links(note) if note.tags != ''
   element << '</p>'
 end
 
 def toggle_visibility(note)
   element = ''
-  ##href=#expand -- points to non-existant div, so it doesn't go anywhere
+    ##href=#expand -- points to non-existant div, so it doesn't go anywhere
   element << '<a href="#expand" onclick="toggle_visibility(\''
   element << note.id.to_s
   element << '\');"> &raquo;'
