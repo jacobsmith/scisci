@@ -147,6 +147,7 @@ def expand(note)
   element << '<p style="display:none" id="' + note.id.to_s + '">'
   element << 'Page: ' + note.page.to_s if note.page != ''
   element << ' Tags: ' + tag_links(note) if note.tags != ''
+  element << '<br> Comments: ' + note.comments if note.comments != ''
   element << '</p>'
 end
 

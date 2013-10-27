@@ -37,6 +37,7 @@ end
   property :author, String
   property :copyright_date, String
   property :website_url, String
+  property :comments, Text 
 
   has n, :note
   belongs_to :project
@@ -50,6 +51,7 @@ class Note
   property :page, String
   property :source_name, String 
   property :tags, String
+  property :comments, Text 
 
   belongs_to :source 
 end

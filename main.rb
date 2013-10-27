@@ -171,7 +171,7 @@ class SciSci < Sinatra::Application
 
         begin
           source.save
-          session[:flash] = "Source #{source.name} successfully created!"
+          session[:flash] = "Source #{source.title} successfully created!"
           redirect "/all_sources"
         rescue Exception => e
           "Error while saving: " + e.to_s
@@ -240,7 +240,6 @@ class SciSci < Sinatra::Application
         erb :please_login
       end
     end
-
 
     get "/login" do
       @title = "Login"

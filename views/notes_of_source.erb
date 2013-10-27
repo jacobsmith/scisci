@@ -1,6 +1,7 @@
 <% @source.note.each do |note| %>
   <%= note.quote %>
   <br>
+  &nbsp --<%= note.comments %>
   <%= tag_links(note)  %>
   <br>
 <%end%>

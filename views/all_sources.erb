@@ -4,5 +4,6 @@
     <% @sources.each do |source| %>
       <%= link_to(source.title, "source/" + source.id.to_s) %>
       <br>
+      <%= "&nbsp -- Comments: #{source.comments}" if source.comments != "" %>
   <% end %>
 <% end %>

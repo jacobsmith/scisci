@@ -1,11 +1,5 @@
-<% source_titles = []
-  @sources.each do |source|
-    source_titles << source.title
-    end
-  %>
-  
 <%= create_form_header("add_note") %>
-<%= create_inputs("textArea", %w[quote]) %>
+<%= create_inputs("textArea", %w[quote comments]) %>
 <%= create_inputs("text", %w[page]) %>
 <%= create_inputs("text", %w[tags]) %>
 <%= hidden_form("source_name", session[:source]) %>
