@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="/css/bootstrap_journal.css" />
     <link rel="stylesheet" href="/css/bootstrap-responsive.css" />
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-
+   
+  
     <div class="container">
       <%= erb :navbar  %>
       <%= flash_message(session[:flash], "success") if session[:flash] %> 
@@ -35,6 +36,18 @@
 
     <script src="//code.jquery.com/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
+    <!--trial code below (: --> 
+    <script type="text/javascript">
+      <!--
+      function toggle_visibility(id) {
+      var e = document.getElementById(id);
+        if(e.style.display == 'block')
+          e.style.display = 'none';
+        else
+        e.style.display = 'block';
+      }
+//-->
+</script>
   </body>
 
   <!--footer-->
