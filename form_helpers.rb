@@ -114,7 +114,7 @@ def create_tabs2()
   element << '<div class="tabbale tabs-left">' 
   element << '<ul class="nav nav-tabs" data-toggle="tabs">'
   @sources.each do |source|
-    element << '<li><a href="#' + source.id.to_s + '" data-toggle="tab">' + source.title + '</a></li>'
+    element << '<li><a href="#' + source.title.split.join.to_s + source.id.to_s + '" data-toggle="tab">' + source.title + '</a></li>'
   end
   element << '</ul>' #end of creating tabs themselves
 
@@ -123,12 +123,12 @@ def create_tabs2()
   element << "\n"
   element << '<div class="tab-content">'
   @sources.each do |source|
-    element << '<div id="' + source.id.to_s + '" class="tab-pane">'
+    element << '<div id="' + source.title.split.join.to_s + source.id.to_s + '" class="tab-pane">'
     element << '<ul class="list-group span7">'
 
     source.note.each do |note|
       element << '<li class="list-group-item">'
-      element << note.quote + "<br>" if note.source == source
+      element << note.quote + toggle_visibility(note) + "<br>" if note.source == source
       element << expand(note)
       element << '</li>'
     end
@@ -142,15 +142,19 @@ end
 
 def expand(note)
   element = ''
-  element << '<div class="collapse-group">'
-  element << '<div class="collapse" id="' + note.id.to_s + '">'
-  element << note.page 
-  element << note.tags
-  element << '</div>'
-  element << '<a class="btn-primary btn-sm" data-toggle="collapse" data-target="#' + note.id.to_s + '">'
-  element << 'View Details'
-  element << '</a>' 
-  element << '</div>'
+  element << '<p style="display:none" id="' + note.id.to_s + '">'
+  element << 'Page: ' + note.page.to_s if note.page != ''
+  element << ' Tags: ' + note.tags.to_s if note.tags != ''
+  element << '</p>'
+end
+
+def toggle_visibility(note)
+  element = ''
+  ##href=#expand -- points to non-existant div, so it doesn't go anywhere
+  element << '<a href="#expand" onclick="toggle_visibility(\''
+  element << note.id.to_s
+  element << '\');"> &raquo;'
+  element << '</a>'
 end
 
 def flash_message(message, type_of_notice)
