@@ -13,4 +13,6 @@ Development is in two sections. On the local machine, the branches * local\_deve
 
  Use `bundle exec rackup` to open a new instance on port `9292`. This will allow for testing on the production server while still maintaining integrity. Then, you can merge `development` into `master`, issue `service nginx restart`, and all changes should be propogated accordingly.
 
-
+Deployment
+--------
+Setup Passenger and Nginx according to their tutorials on the Passenger website. The owner of `config.ru` is who executes the rest of the program, so be sure all assets and things are accessible to that owner (`chown username file.ext` or `chown -R username directory/`). This is especially useful if there is a error similar to "trying to execute in a read-only database". 
