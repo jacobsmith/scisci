@@ -33,8 +33,8 @@ end
   
   property :id, Serial, :key => true, :lazy => false
   property :created_at, DateTime, :lazy => false
-  property :title, String, :required => true
-  property :author, String
+  property :title, String, :required => true, :length => 180
+  property :author, String, :length => 100
   property :copyright_date, String
   property :website_url, String
   property :comments, Text 

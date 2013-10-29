@@ -34,7 +34,7 @@ class SciSci < Sinatra::Application
       end
 
       def return_all_sources
-        Project.first(:user_id => User.first(:username => session[:username]).id, :project_name => session[:project_name]).source
+        session[:project_name] ? Project.first(:user_id => User.first(:username => session[:username]).id, :project_name => session[:project_name]).source : []
       end
     end
 
@@ -294,6 +294,10 @@ class SciSci < Sinatra::Application
       session[:project_name] = nil
       session.clear
       redirect "/"
+    end
+
+    get "/add_project" do
+      redirect "/create_project"
     end
 
 end
