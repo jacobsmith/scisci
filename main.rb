@@ -40,8 +40,8 @@ class SciSci < Sinatra::Application
 
     before do
       if login?
-        @projects = User.first(:username => session[:username]).project.all
-        @sources = Source.all(:project => session[:project_name])
+        @projects ? User.first(:username => session[:username]).project.all : []
+        @sources ? Source.all(:project => session[:project_name]) : []
       else
         @projects = []
         @sources = []
