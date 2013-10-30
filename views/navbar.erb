@@ -9,7 +9,7 @@
         <ul class="dropdown-menu">
           <% if @projects != nil 
                @projects.each do |project| %>
-            <%= "<li><a href=\"project/#{project.project_name}\">#{project.project_name}</a></li>" %> 
+                 <%= "<li><a href=\"/project/#{project.project_name}\">#{project.project_name}</a></li>" %> 
           <% end %> 
         <% end %>
           <li class="divider"></li> 
@@ -23,7 +23,7 @@
           <ul class="dropdown-menu">
             <% if @sources != nil 
             @sources.each do |source|  %>
-              <%= "<li><a href=\"source/#{source.id}\">#{source.title}</a></li>" %> 
+              <%= "<li><a href=\"/source/#{source.id}\">#{source.title}</a></li>" %> 
             <% end %>
           <% end %>
           <li class="divider"></li> 
