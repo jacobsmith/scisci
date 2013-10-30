@@ -5,7 +5,7 @@
       <br>
       <%= "Comments: #{note.comments} <br>" if note.comments != nil %>
       <%= "Page: #{note.page} <br>" if note.page != '' %>
-      <%= "Tags: " + tag_links(note) %>
+      <%= "Tags: " + tag_links(note) if note.tags != '' %>
       </li> 
     <% end %>
     </ul>
