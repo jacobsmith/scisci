@@ -1,7 +1,13 @@
-<% @source.note.each do |note| %>
-  <%= note.quote %>
-  <br>
-  &nbsp --<%= note.comments %>
-  <%= tag_links(note)  %>
-  <br>
-<%end%>
+<ul class="list-group span8">
+    <% @source.note.each do |note| %>
+      <li class="list-group-item">
+      <%= note.quote %>
+      <br>
+      <%= "Comments: #{note.comments} <br>" if note.comments != nil %>
+      <%= "Page: #{note.page} <br>" if note.page != '' %>
+      <%= "Tags: " + tag_links(note) %>
+      </li> 
+    <% end %>
+    </ul>
+<%# end %>
+

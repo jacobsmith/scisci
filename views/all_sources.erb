@@ -1,9 +1,12 @@
 <% if @sources == [] %>
     <p>Please add a source to begin.</p>
   <% else %>
+      <ul class="list-group span8">
     <% @sources.each do |source| %>
+      <li class="list-group-item">
       <%= link_to(source.title, "source/" + source.id.to_s) %>
-      <br>
-      <%= "&nbsp -- Comments: #{source.comments}" if source.comments != "" %>
-  <% end %>
+      <%= "&nbsp -- Comments: #{source.comments}" if source.comments != nil %>
+      </li> 
+    <% end %>
+    </ul>
 <% end %>
