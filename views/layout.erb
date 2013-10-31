@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="/css/bootstrap_journal.css" />
     <link rel="stylesheet" href="/css/bootstrap-responsive.css" />
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-   
-  
+
+  <div class="container">    
     <div class="container">
       <%= erb :navbar  %>
       <%= flash_message(session[:flash], "success") if session[:flash] %> 
@@ -44,11 +44,24 @@
             <div style="padding-left:10px"><%= yield %> </div>
         </div> <!--span information-->
       </div> <!--row-fluid-->
+  </div>
+
+
+  <!--footer-->
+  <div class="navbar navbar-inner navbar-fixed-bottom">
+    <div class="col-md-4 offset0">
+      <h5><small>Copyright 2013 - Jacob Smith<br></small></h5> 
+    </div>
+  </div>
+
     </div> <!--container-fluid-->
 
-    <script src="//code.jquery.com/jquery.js"></script>
+
+  <script src="//code.jquery.com/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
-    <!--trial code below (: --> 
+    <script src="/js/add_note_tags.js"></script>
+
+    <!--code for expanding details on all_notes, etc. --> 
     <script type="text/javascript">
       <!--
       function toggle_visibility(id) {
@@ -62,10 +75,4 @@
 </script>
   </body>
 
-  <!--footer-->
-  <div class="navbar navbar-fixed-bottom">
-    <div class="col-md-4 offset0">
-      <h5><small>Copyright 2013 - Jacob Smith<br></small></h5> 
-    </div>
-  </div>
     </html>

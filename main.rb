@@ -104,6 +104,8 @@ class SciSci < Sinatra::Application
       if login?
         @sources = return_all_sources() 
         @title = "Add Note"
+        @tags = []
+        @sources.note.map { |note| @tags << note.tags if note.tags != "" }
         erb :add_note
       else
         erb :please_login
