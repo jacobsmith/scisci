@@ -69,7 +69,8 @@ class SciSci < Sinatra::Application
       if login?
         @title = "New Project"
         erb :create_project
-      else
+      else 
+        @title = "Please Login"
         erb :please_login
       end
     end
@@ -105,6 +106,7 @@ class SciSci < Sinatra::Application
         @title = "All Projects"
         erb :all_projects
       else
+        @title = "Please Login"
         erb :please_login
       end
     end
@@ -117,6 +119,7 @@ class SciSci < Sinatra::Application
         @sources.note.map { |note| @tags << note.tags if note.tags != "" }
         erb :add_note
       else
+        @title = "Please Login"
         erb :please_login
       end
     end
@@ -143,6 +146,7 @@ class SciSci < Sinatra::Application
           "Error while saving: " + e.to_s
         end
       else
+        @title = "Please Login"
         erb :please_login
       end
 
@@ -154,6 +158,7 @@ class SciSci < Sinatra::Application
         @title = "All Notes"
         erb :all_notes
       else
+        @title = "Please Login"
         erb :please_login  
       end 
     end
@@ -164,6 +169,7 @@ class SciSci < Sinatra::Application
         @title = "Add Source"
         erb :add_source
       else
+        @title = "Please Login"
         erb :please_login
       end
     end
@@ -188,6 +194,7 @@ class SciSci < Sinatra::Application
           "Error while saving: " + e.to_s
         end
       else
+        @title = "Please Login"
         erb :please_login
       end
     end
@@ -203,6 +210,7 @@ class SciSci < Sinatra::Application
           session[:flash] = "You must add a source first (: "
         end
       else
+        @title = "Please Login"
         erb :please_login
       end
     end
@@ -215,6 +223,7 @@ class SciSci < Sinatra::Application
         session[:source] = @title 
         erb :notes_of_source
       else
+        @title = "Please Login"
         erb :please_login
       end
     end
@@ -233,6 +242,7 @@ class SciSci < Sinatra::Application
         erb :search_return
 
       else
+        @title = "Please Login"
         erb :please_login
       end
 
@@ -248,6 +258,7 @@ class SciSci < Sinatra::Application
         @title = "Tags"
         erb :search_return
       else
+        @title = "Please Login"
         erb :please_login
       end
     end
@@ -325,6 +336,7 @@ class SciSci < Sinatra::Application
           erb :edit_note
         end
       else
+        @title = "Please Login"
         erb :please_login 
       end
     end

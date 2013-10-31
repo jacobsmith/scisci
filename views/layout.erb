@@ -32,15 +32,14 @@
     <div class="container-fluid">
       <div class="row-fluid">
         <div class="span11 offset1">
-          <div class="row-fluid span9">
-          <h3><%= @title %><a href="<%= puts request.path
-                                        if request.path.match("all")
+          <div class="row-fluid">
+          <h3><%= @title %><a href="<%= if request.path.match("all")
                                           request.path.gsub("all","add").chop
                                         elsif request.path.match(/source\/\d+/) 
                                           "/add_note"
                                         end %>"><i class="icon-plus-sign-alt offset8 text-success" style="float: right"></i></a></h3>
-            <!-- '<small class="offset7">Add new!</small>' if request.path.match(/all/) %>-->
             </div> <!--row-fluid (title area) --> 
+            <br>
             <div style="padding-left:10px"><%= yield %> </div>
         </div> <!--span information-->
       </div> <!--row-fluid-->
