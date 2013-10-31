@@ -5,7 +5,7 @@
       <li class="active"><a href="/all_projects">Home</a></li>
       <li class="dropdown">
 
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects<b class="caret"></b></a>
         <ul class="dropdown-menu">
           <% if @projects != nil 
                @projects.each do |project| %>
@@ -37,7 +37,7 @@
     
     </ul> <!-- left navbar -->
 
-      <ul class="nav navbar-nav pull-right">
+      <ul class="nav navbar-nav" style="float: right">
         <li class="navbar-form"><%= erb :search %></li>
         <%= '<li><a href="/logout">Logout</a></li>' if login? == true %>
         <%= '<li><a href="/login">Login</a></li>' if login? == false %>
