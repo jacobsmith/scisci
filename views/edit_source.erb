@@ -1,0 +1,5 @@
+<%= create_form_header("edit_source") %>
+<%= create_inputs("text", %w[title author copyright_date website_url comments], @source) %>
+<%= hidden_form("id", params[:id]) %>
+<%= create_form_submit %>
+

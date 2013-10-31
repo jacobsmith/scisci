@@ -9,17 +9,17 @@ def create_form_header(url, id='')
   return element
 end
 
-def create_inputs(type, labels, value = nil, columns = 0, rows = 0)
+def create_inputs(type, labels, request = nil, columns = 0, rows = 0)
   element = ''
   labels.each do |label|
-    saved_value = @request.respond_to?(label) ? @request.send(label) : "" 
+    saved_value = request.respond_to?(label) ? request.send(label) : "" 
     element << '<div class="control-group">'
     element <<  '<label class="control-label" for="' + label + '">' + underscore_to_words(label) + '</label>'
     element << '<div class="controls span0">'
     element <<  "<input type=\"" + type + "\" class=\"span4\"" if type != 'textarea'
     element << '<textarea class="span4" rows="4" ' if type == 'textarea'
-    element << " id=\"" + label + "\" name=\"" + label + "\" value=\"" + saved_value + "\">"
-#    element << '</input>' if type != 'textarea'
+    element << " id=\"" + label + "\" name=\"" + label + "\" value=\"" + saved_value.to_s + "\">"
+    element << saved_value.to_s if type == 'textarea'
     element << '</textarea>' if type == 'textarea'
     element << '</div>'
     element << '</div>'
@@ -117,7 +117,7 @@ end
 def create_tabs2()
   element = ''
   element << '<div class="tabbale tabs-left">' 
-  element << '<ul class="nav nav-tabs" data-toggle="tabs">'
+  element << '<ul class="nav nav-tabs span3" data-toggle="tabs">'
   @sources.each do |source|
     element << '<li><a href="#' + source.title.split.join.to_s + source.id.to_s + '" data-toggle="tab">' + source.title + '</a></li>'
   end

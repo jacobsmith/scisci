@@ -3,10 +3,11 @@
   <% else %>
       <ul class="list-group span8">
     <% @sources.each do |source| %>
-      <li class="list-group-item">
+        <li class="list-group-item">
       <%= link_to(source.title, "source/" + source.id.to_s) %>
       <%= "&nbsp -- Comments: #{source.comments}" if source.comments != nil %>
-      </li> 
+        <a href="/edit/source/<%=source.id%>" style="float: right">Edit</a>
+      </li>
     <% end %>
     </ul>
 <% end %>

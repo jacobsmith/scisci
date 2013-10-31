@@ -41,7 +41,19 @@ end
 
   has n, :note
   belongs_to :project
-end
+
+  validates_with_method :title, :method => :no_exclamation_point?
+
+
+  def no_exclamation_point? 
+   ##exclamation point causes errors with tabs in HTML/CSS/js -- not sure which (/all_notes)   
+    if @title.count("!") > 0 
+        return [false, "Source title must not contain exclamation points (!)."]
+      else
+        true
+      end 
+    end 
+ end
 
 class Note
   include DataMapper::Resource

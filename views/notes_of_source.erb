@@ -2,8 +2,9 @@
     <% @source.note.each do |note| %>
       <li class="list-group-item">
       <%= note.quote %>
+        <a href="/edit/note/<%=note.id%>" style="float: right">Edit</a>
       <br>
-      <%= "Comments: #{note.comments} <br>" if note.comments != nil %>
+      <%= "Comments: #{note.comments} <br>" if note.comments != '' %>
       <%= "Page: #{note.page} <br>" if note.page != '' %>
       <%= "Tags: " + tag_links(note) if note.tags != '' %>
       </li> 

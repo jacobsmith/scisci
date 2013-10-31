@@ -1,0 +1,11 @@
+<%= create_form_header("edit_note") %>
+<%= create_inputs("textarea", %w[quote comments], @note) %>
+<%= create_inputs("text", %w[page], @note) %>
+
+<% @tags.each do |tag| %>
+  <a href="#add_tag" class="tags_to_append"> <%= tag %></a>
+<% end %>
+
+<%= create_inputs("text", %w[tags], @note) %>
+<%= hidden_form("id", params[:id]) %>
+<%= create_form_submit %>

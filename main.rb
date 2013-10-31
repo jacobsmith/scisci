@@ -36,6 +36,15 @@ class SciSci < Sinatra::Application
       def return_all_sources
         session[:project_name] ? Project.first(:user_id => User.first(:username => session[:username]).id, :project_name => session[:project_name]).source : []
       end
+
+      def return_source(id)
+          Project.all(:user_id => User.first(:username => session[:username]).id).source(:id => id).first 
+      end
+
+      def return_note(id)
+        #returnging first returns individual object, rather than collection
+        Project.all(:user_id => User.first(:username => session[:username]).id).source.note(:id => id).first 
+      end
     end
 
     before do
@@ -300,6 +309,62 @@ class SciSci < Sinatra::Application
 
     get "/add_project" do
       redirect "/create_project"
+    end
+
+    get "/edit/:type/:id" do
+      if login?
+        type = params[:type]
+        id = params[:id]
+
+        if type == "source"
+          @source = return_source(id) 
+          erb :edit_source
+        else type == "note"
+          @note = return_note(id)
+          @tags = %w[placeholder] 
+          erb :edit_note
+        end
+      else
+        erb :please_login 
+      end
+    end
+  
+    post "/edit_source" do
+      source = return_source(params[:id])
+      params.delete(:id) 
+
+        params.each do |param|
+          if !param.nil?
+            source.attributes = { param[0].to_sym => param[1] || nil }
+          end 
+        end
+
+        begin
+          source.save
+          session[:flash] = "Source #{source.title} successfully updated!"
+          redirect "/all_sources"
+        rescue Exception => e
+          "Error while saving: " + e.to_s
+        end
+    end
+   
+   post "/edit_note" do
+    note = return_note(params[:id]) 
+    params.delete(:id)
+
+    params.each do |param|
+          if !param.nil?
+            note.attributes = { param[0].to_sym => param[1] || nil }
+          end 
+        end
+
+        begin
+          note.save
+          session[:flash] = "Note successfully updated!"
+          redirect "/all_sources"
+        rescue Exception => e
+          "Error while saving: " + e.to_s
+        end
     end
 
 end
