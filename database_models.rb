@@ -36,7 +36,7 @@ end
   property :title, String, :required => true, :length => 180
   property :author, String, :length => 100
   property :copyright_date, String
-  property :website_url, String
+  property :website_url, String, :length => 2096
   property :comments, Text 
 
   has n, :note
