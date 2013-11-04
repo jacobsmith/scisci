@@ -76,8 +76,8 @@ def underscore_to_words(string_with_underscores)
   string_with_underscores.split("_").map { |i| i.capitalize }.join(" ")
 end
 
-def link_to(text, url)
-    "<a href='#{url}' >#{text}</a>"
+def link_to(text, url, div_class="")
+    "<a href='#{url}' class=\"#{div_class}\" >#{text}</a>"
 end
  
 def url_is(string) 

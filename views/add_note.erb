@@ -2,19 +2,10 @@
 <%= create_inputs("textarea", %w[quote comments]) %>
 <%= create_inputs("text", %w[page]) %>
 
-<% @tags.each do |tag| %>
-  <a href="#add_tag" class="tags_to_append"> <%= tag %></a>
+<% @sources.note.each do |note| %>
+  <%= tag_append(note) %>
 <% end %>
 
 <%= create_inputs("text", %w[tags]) %>
 <%= hidden_form("source_name", session[:source]) %>
 <%= create_form_submit %>
-
-<script>
-  var tags = document.getElementsByClassName('tags_to_append');
-  var title = document.getElementById('tags');
-  tags.onclick = function {
-    tags.preventDefault();
-    title.append(self.text());
-  }
-</script>

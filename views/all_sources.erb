@@ -1,13 +1,29 @@
 <% if @sources == [] %>
-    <p>Please add a source to begin.</p>
-  <% else %>
-      <ul class="list-group span8">
+  <p>Please add a source to begin.</p>
+<% else %>
+  <ul class="list-group span8">
     <% @sources.each do |source| %>
+        <!--add each source to the list -->
         <li class="list-group-item">
+
+        <!--link it to its proper source page-->
       <%= link_to(source.title, "source/" + source.id.to_s) %>
-      <%= "&nbsp -- Comments: #{source.comments}" if source.comments != nil %>
-        <a href="/edit/source/<%=source.id%>" style="float: right">Edit</a>
+
+        <!--add the double carat to expand information-->
+      <%= toggle_visibility(source) %>
+      <a href="/edit/source/<%=source.id%>" style="float: right">Edit</a>
+      <%= "<br> #{source.comments}" if source.comments != nil %>
+        <!--display any additional information about source that we want-->
+      <div> 
+        <%= '<p style="display:none" id="' + source.id.to_s + '">' %>
+        <%= "<br>" %>
+        <%= "Author: " + source.author + '<br>' if source.author != "" %>
+        <%= "Copyright: " + source.copyright_date + '<br>' if source.copyright_date != "" %>
+        <%= "URL: " + source.website_url + '<br>' if source.website_url != "" %>
+        <%= '</p>' %>
+      </div>
+
       </li>
     <% end %>
-    </ul>
+  </ul>
 <% end %>
