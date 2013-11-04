@@ -14,12 +14,12 @@
       <a href="/edit/source/<%=source.id%>" style="float: right">Edit</a>
       <%= "<br> #{source.comments}" if source.comments != nil %>
         <!--display any additional information about source that we want-->
-      <div> 
-        <%= '<p style="display:none" id="' + source.id.to_s + '">' %>
+        <div>
+        <%= '<p style="display:none;" id="' + source.id.to_s + '">' %>
         <%= "<br>" %>
         <%= "Author: " + source.author + '<br>' if source.author != "" %>
         <%= "Copyright: " + source.copyright_date + '<br>' if source.copyright_date != "" %>
-        <%= "URL: " + source.website_url + '<br>' if source.website_url != "" %>
+        <%= "URL: " + link_to("Source URL", source.website_url) + "<br>" if source.website_url != "" %>
         <%= '</p>' %>
       </div>
 
