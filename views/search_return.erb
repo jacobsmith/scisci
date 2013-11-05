@@ -1,12 +1,20 @@
+
 <% if @collection != [] %> 
+  <ul class="list-group span8">
+
   <% @collection.reverse.each do |instance| %>
+    <li class="list-group-item">
     <%= instance.quote %>
     <br>
-
-    <%= instance.tags %>
-    <p>---</p>
+    <%= instance.comments %>
+    <br>
+    <%= "Page: " + instance.page + "<br>" if instance.page != "" %>
+    <%= tag_links(instance).to_s %>
+    </li> 
   <% end %>
   <br>
+
+
 <% else %>
   <p>No search results found</p>
 <% end %>
