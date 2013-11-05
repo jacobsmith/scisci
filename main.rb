@@ -19,8 +19,7 @@ class SciSci < Sinatra::Application
     set :session_secret, ENV['SESSION_SECRET']
     set :session_expire_after, 60*60*4 #expire after 4 hours 
 
-
-    helpers do
+      helpers do
       def login?
         if session[:username].nil?
           return false
@@ -45,6 +44,7 @@ class SciSci < Sinatra::Application
         #returnging first returns individual object, rather than collection
         Project.all(:user_id => User.first(:username => session[:username]).id).source.note(:id => id).first 
       end
+
     end
 
     before do
