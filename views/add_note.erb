@@ -1,9 +1,15 @@
-<%= create_form_header("add_note") %>
+  <%= create_form_header("add_note") %>
 <%= create_inputs("textarea", %w[quote comments]) %>
 <%= create_inputs("text", %w[page]) %>
 
-<%= tag_append(@sources) %>
-
 <%= create_inputs("text", %w[tags]) %>
-<%= hidden_form("source_name", session[:source]) %>
-<%= create_form_submit %>
+<div class="help-block span4" style="margin-bottom:60px">
+  <%= tag_append(@sources) %> <br> 
+  Click to add previously used tags.
+  <br>
+  <br>
+
+  <%= hidden_form("source_name", session[:source]) %>
+  <%= create_form_submit %>
+
+</div>

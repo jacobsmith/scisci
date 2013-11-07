@@ -2,10 +2,14 @@
 <%= create_inputs("textarea", %w[quote comments], @note) %>
 <%= create_inputs("text", %w[page], @note) %>
 
-<% @tags.each do |tag| %>
-  <a href="#add_tag" class="tags_to_append"> <%= tag %></a>
-<% end %>
-
 <%= create_inputs("text", %w[tags], @note) %>
+
+<div class="help-block span4" style="margin-bottom:60px">
+  <%= tag_append(@source) %> <br> 
+  Click to add previously used tags.
+  <br>
+  <br>
 <%= hidden_form("id", params[:id]) %>
 <%= create_form_submit %>
+
+</div> 

@@ -328,10 +328,13 @@ class SciSci < Sinatra::Application
 
         if type == "source"
           @source = return_source(id) 
+          @title = "Edit Source"
           erb :edit_source
         else type == "note"
           @note = return_note(id)
+          @source = @note.source
           @tags = %w[placeholder] 
+          @title = "Edit Note"
           erb :edit_note
         end
       else

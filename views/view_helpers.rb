@@ -18,7 +18,8 @@ def tag_append(source)
   source.note.map { |note|
     if note.tags != ""
       note.tags.split(",").each do |tag|
-        @all_tags[tag.strip] += 1
+        #ensure we don't add empty tags (tag.strip will still add "" as a valid entry)
+        @all_tags[tag.strip] += 1 if tag.strip != ""
       end
     end
   } 
@@ -26,7 +27,7 @@ def tag_append(source)
 
   #doing a hack to return tags with links--not the best solution, but working
   tags = "" 
-  sorted_tags.each { |tag, value| tags += link_to(" #" + tag.to_s, "#tag_to_append", "tags_to_append") }
+  sorted_tags.each { |tag, value| tags += link_to("#" + tag.to_s, "#tag_to_append", "tags_to_append") + " " }
   return tags
 end
   
