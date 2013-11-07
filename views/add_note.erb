@@ -2,9 +2,7 @@
 <%= create_inputs("textarea", %w[quote comments]) %>
 <%= create_inputs("text", %w[page]) %>
 
-<% @sources.note.each do |note| %>
-  <%= tag_append(note) %>
-<% end %>
+<%= tag_append(@sources) %>
 
 <%= create_inputs("text", %w[tags]) %>
 <%= hidden_form("source_name", session[:source]) %>
