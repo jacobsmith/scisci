@@ -2,5 +2,8 @@ $(document).ready( function() {
 });
   
 $('.tags_to_append').click( function() {
-    $('#tags').val($('#tags').val() + $(this.text)); 
+  clicked_tag = $(event.target).html();
+  clicked_tag += ", "
+  tag_to_append = clicked_tag.substring(2);
+    $('#tags').val($('#tags').val() + tag_to_append); 
   });
