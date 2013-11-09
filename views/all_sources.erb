@@ -17,8 +17,8 @@
         <div>
         <%= '<p style="display:none;" id="' + source.id.to_s + '">' %>
         <%= "<br>" %>
-        <%= "Author: " + source.author + '<br>' if source.author != "" %>
-        <%= "Copyright: " + source.copyright_date + '<br>' if source.copyright_date != "" %>
+        <%= "Author: " + source.author.to_s + '<br>' if source.author != "" %>
+        <%= "Copyright: " + source.copyright_date.to_s + '<br>' if source.copyright_date != "" %>
         <%= "URL: " + link_to("Source URL", source.website_url) + "<br>" if source.website_url != "" %>
         <%= '</p>' %>
       </div>
