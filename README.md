@@ -2,12 +2,12 @@ SciSci
 ========
 
 SciSci is a note taking application that collects notes into ideas, rathern than by sources. By doing this, you can focus on the content of your research, rather than trying to remember where you learned certain facts.
-
+You can access the site at http://www.SciSciNotes.com
 
 Development 
 -----
 
-Development is in two sections. On the local machine, the branches * local\_development, master * should exist. On the server, there should be * development, master * .
+Development is in two sections. On the local machine, the branches ' local\_development, master ' should exist. On the server, there should be * development, master * .
 
  All development should take place on `local_development`, tested throroughly, and then merged into local `master`. Then, push local `master` to server `development` for testing on the production server.
 
